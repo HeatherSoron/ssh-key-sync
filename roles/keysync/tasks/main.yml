@@ -1,0 +1,17 @@
+- name: place valid keys
+  ansible.posix.authorized_key:
+    user: "{{ item[0] }}"
+    state: present
+    key: "{{ item[1] }}"
+  with_nested:
+    - "{{users}}"
+    - "{{valid_keys}}"
+
+- name: remove old keys
+  ansible.posix.authorized_key:
+    user: "{{ item[0] }}"
+    state: absent
+    key: "{{ item[1] }}"
+  with_nested:
+    - "{{users}}"
+    - "{{revoked_keys}}"

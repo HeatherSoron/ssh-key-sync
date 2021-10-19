@@ -1,0 +1,7 @@
+- hosts: all
+  remote_user: "{{root_user if (root_user is defined) else 'root'}}"
+  become: yes
+  roles:
+    - keysync
+  vars_files:
+    - "{{inventory_dir}}/config.yml"
