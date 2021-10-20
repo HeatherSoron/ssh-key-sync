@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: "{{host_pattern if (host_pattern is defined) else 'mine'}}"
   remote_user: "{{root_user if (root_user is defined) else 'root'}}"
   become: yes
   roles:

@@ -2,10 +2,10 @@
   ansible.posix.authorized_key:
     user: "{{ item[0] }}"
     state: present
-    key: "{{ item[1] }}"
+    key: "{{ lookup('file', item[1]) }}"
   with_nested:
     - "{{users}}"
-    - "{{valid_keys}}"
+    - "{{lookup('fileglob', '{{inventory_dir}}/valid_keys/*', wantlist=True)}}"
 
 - name: remove old keys
   ansible.posix.authorized_key:
