@@ -11,7 +11,7 @@
   ansible.posix.authorized_key:
     user: "{{ item[0] }}"
     state: absent
-    key: "{{ item[1] }}"
+    key: "{{ lookup('file', item[1]) }}"
   with_nested:
     - "{{users}}"
-    - "{{revoked_keys}}"
+    - "{{lookup('fileglob', '{{inventory_dir}}/revoked_keys/*', wantlist=True)}}"
